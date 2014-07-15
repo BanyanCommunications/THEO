@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+<link rel="stylesheet" href="style.css">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script>
+$(function () {
+    //variable of correct answers	
+    var rules = ['correct'];
+
+    $('.submit').click(function (e) {
+        e.preventDefault();
+        //check correct answers from var above
+        var result;
+        switch($('input[name=q4]:checked').attr('class')){
+            case 'question': 
+                result = '<p class="incorrect">Wrong answer!</p>';
+                break;
+            default:
+                result = '<p class="correct">Correct answer!</p>';
+                break;
+        }
+		
+$('.validate').append("<p>" + result + "</p>");
+$('.submit').fadeOut(0);
+$('.next').show();       
+    });
+});
+</script>
+
+</head>
+
+
+<body>
+
+<div class="wrapper_00">
+<div class="sideNav">
+<h2>Standard</h2>
+<ul class="navigation">
+<li><a href="" class="active">Multiple Choice</a></li>
+<li><a href="">Radio Buttons</a></li>
+<li><a href="">Checkboxes</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+</ul>
+<h2>Other</h2>
+
+<ul class="navigation">
+<li><a href="">Drag &amp Drop</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+</ul>
+<h2>Video</h2>
+
+<ul class="navigation">
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+</ul>
+</div>
+
+
+
+
+<div class="example">
+<h1>Multiple Choice, Single Answer</h1>
+
+   <div class="exampleBox">
+
+<p class="para"><strong>1. What is the best color to wear after dark?</strong></p>
+<form>
+    <label class="answer">
+        <input type="radio" name="q4" class="question"></input> black</label>
+    <label class="answer">
+        <input type="radio" name="q4" class="question"></input> red</label>
+    <label class="answer">
+        <input type="radio" name="q4"></input> reflective yellow</label>
+    <br />
+    <div class="validate"></div>
+    <button class="submit">Submit</button>
+     
+</form>
+<a href="#"><button class="next">Next</button></a>
+</div>
+</div>
+
+
+<div class="doc">
+<h1>Documentation</h1>
+<p><strong>0. Dependencies</strong></p>
+<p>Jquery</p>
+<br>
+<p><strong>1. Full JQuery</strong></p>
+<pre>
+ $(function () { 
+ 
+ //variable of correct answers var rules = ['correct'];
+ $('.submit').click(function (e) { e.preventDefault(); 
+ 
+ //check correct answers from var above var result; 
+ 
+ switch($('input[name=q4]:checked').attr('class')){
+ 
+ case 'question':
+ result = '&lt;p class=&quot;incorrect&quot;&gt;Wrong answer!&lt;/p&gt;';
+ break; 
+ 
+ default: result = '&lt;p class=&quot;correct&quot;&gt;Correct answer!&lt;/p&gt;';
+ break;}
+ 
+ $('.validate').append(&quot;&lt;p&gt;&quot; + result + &quot;&lt;/p&gt;&quot;);
+ $('.submit').fadeOut(0);
+ $('.next').show(); }); });
+</pre><br>
+
+<p><strong>2. Cases</strong></p>
+<pre>
+ case 'question':
+ result = '&lt;p class=&quot;incorrect&quot;&gt;Wrong answer!&lt;/p&gt;';
+ break; 
+ 
+ default: result = '&lt;p class=&quot;correct&quot;&gt;Correct answer!&lt;/p&gt;';
+ break;}
+</pre>
+<p>The 'case' is the class attached to the question that will be searched for when determining the correct message to display on submit.  Currently these classes are in the HTML, but could be pulled in from a JSON (or similar) file to prevent easy cheating.<br><br>
+The 'result' is the message displayed on submit. 
+</p><br>
+
+<p><strong>3. Validation</strong></p>
+
+<pre>
+ $('.validate').append(&quot;&lt;p&gt;&quot; + result + &quot;&lt;/p&gt;&quot;);
+</pre>
+<p>Appends 'result' variable message to the '.validate' div in the HTML.  Currently messages are encoded in the Jquery, but could be stored and pulled in from a JSON file.</p><br>
+
+
+</div>
+
+
+</div>
+</body>
+</html>

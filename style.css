@@ -1,0 +1,145 @@
+@charset "UTF-8";
+/* CSS Document */
+
+*{
+margin: 0;
+padding: 0;	
+}
+
+body {
+background: url(http://banyancom.com/wp-content/uploads/2013/04/black_denim_light.jpeg) repeat;  
+font-family:Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+.wrapper_00 {
+width: 100%;	
+}
+
+h2 {
+color:#fff;
+font-size: 18px;
+font-weight:normal;
+margin-bottom: 5px;	
+}
+
+.example {
+margin-left: 280px;	
+padding: 20px;
+color:#444;
+top: 0;
+}
+
+.doc {
+margin-left: 270px;	
+padding: 30px;
+bottom: 0;
+border-top: 1px solid #ccc;	
+background: rgba(0,0,0,.05);
+z-index: 150;
+}
+
+pre {
+border: 1px solid #ccc;	
+margin-top: 10px;
+padding: 20px;
+background: #fff;
+}
+
+.exampleBox {
+border: 1px solid #ccc;	
+margin-top: 10px;
+padding: 20px;
+background: #fff;
+}
+
+p {
+margin-top: 10px;
+margin-bottom: 10px;	
+}
+
+p.para {
+margin-top: 10px;
+margin-bottom: 10px;	
+margin-right: 0px;
+}
+/*-----------NAVIGATION-----------*/
+
+
+.sideNav {
+height: 100%;
+background:#353535;	
+width: 230px;
+position: fixed;
+padding: 20px;
+z-index: 200;
+overflow:auto;
+}
+
+
+ul.navigation {
+margin-bottom: 20px;	
+}
+
+.navigation li {
+list-style-type: none;
+text-transform:lowercase;
+}
+
+.navigation a {
+color:#fff;
+display: block;
+text-decoration:none;
+font-size: 12px;
+background:#555;
+margin-bottom: 3px;
+padding: 6px;
+}
+
+.navigation a:hover {
+color:#fff;
+display: block;
+margin-bottom: 3px;
+padding: 6px;
+text-decoration:none;
+font-size: 12px;
+background:#444;
+}
+
+.active {
+	background:#e97e33!important;
+}
+
+
+
+
+/*--------MULTIPLE CHOICE, SINGLE ANSWER CSS-----------*/
+
+.incorrect {
+color:red!important;	
+}.correct {
+color:green!important;	
+}
+.next {
+display: none;	
+}
+.validate{
+margin-top:-15px;	
+}
+.answer {
+background: #ddd;
+padding: 7px;
+margin-right: 5px;
+display: block;
+margin-top: 2px;
+}
+
+button {
+background: #e97e33;
+border: 0;
+padding: 10px;
+color:#fff;
+}
+
+button:hover {
+background: #C66400;
+}
+
