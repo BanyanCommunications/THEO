@@ -1,0 +1,24 @@
+{"quiz":[
+	{"question" : "1. Can JSON generate the entire question and structure?",
+	 	"answers":[
+	 		{"choice":"Yep!",
+	 		"response":"Correct. We can do anything with JQuery."},
+	 		{"choice":"Nope.",
+	 		"response":"Wrong! Of course we can do it."},
+	 		{"choice":"Maybe?",
+	 		"response":"Wrong! Don't be wishy washy."}
+	 		]
+	 },
+	 {"question" : "2. How many json files are needed for this quiz?",
+	 	"answers":[
+	 		{"choice":"One",
+	 		"response":"Correct. Just one file to edit for this quiz."},
+	 		{"choice":"Two",
+	 		"response":"Wrong! Of course we can do it."},
+	 		{"choice":"Three",
+	 		"response":"Wrong! Don't be wishy washy."}
+	 		]
+	 }
+	 
+	 ]
+}	 		
