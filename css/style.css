@@ -184,4 +184,48 @@ ol{
 	color: green;
 	}		
 
+.progressBarHolder{
+	height: auto;
+	display: inline-block;
+	overflow-y: auto;
+	margin: 20px 0px;
+	padding: 0px 0;
+	background: rgba(186,186,186,0);
+	background: -moz-linear-gradient(top, rgba(186,186,186,0) 38%, rgba(186,186,186,0) 38%, rgba(187,187,187,0.96) 39%, rgba(201,201,201,1) 65%, rgba(255,255,255,0.97) 66%, rgba(255,255,255,0) 100%);
+background: -webkit-gradient(left top, left bottom, color-stop(38%, rgba(186,186,186,0)), color-stop(38%, rgba(186,186,186,0)), color-stop(39%, rgba(187,187,187,0.96)), color-stop(65%, rgba(201,201,201,1)), color-stop(66%, rgba(255,255,255,0.97)), color-stop(100%, rgba(255,255,255,0)));
+background: -webkit-linear-gradient(top, rgba(186,186,186,0) 38%, rgba(186,186,186,0) 38%, rgba(187,187,187,0.96) 39%, rgba(201,201,201,1) 65%, rgba(255,255,255,0.97) 66%, rgba(255,255,255,0) 100%);
+background: -o-linear-gradient(top, rgba(186,186,186,0) 38%, rgba(186,186,186,0) 38%, rgba(187,187,187,0.96) 39%, rgba(201,201,201,1) 65%, rgba(255,255,255,0.97) 66%, rgba(255,255,255,0) 100%);
+background: -ms-linear-gradient(top, rgba(186,186,186,0) 38%, rgba(186,186,186,0) 38%, rgba(187,187,187,0.96) 39%, rgba(201,201,201,1) 65%, rgba(255,255,255,0.97) 66%, rgba(255,255,255,0) 100%);
+background: linear-gradient(to bottom, rgba(186,186,186,0) 38%, rgba(186,186,186,0) 38%, rgba(187,187,187,0.96) 39%, rgba(201,201,201,1) 65%, rgba(255,255,255,0.97) 66%, rgba(255,255,255,0) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bababa', endColorstr='#ffffff', GradientType=0 );
+	background-position: 98%;
+	}
+	
+.progressBar li{
+	float: left;
+	list-style: none;
+	width: 20px;
+	height: 20px;
+	background: #ddd;
+	-webkit-border-radius: 13px;
+	-moz-border-radius: 13px;
+	border-radius: 13px;
+	text-align: center;
+	margin-right: 40px;
+	border: solid 3px #cecece;
+	}
+	
+.progressBar li.active{
+	background:#e97e33;
+}
 
+.progressBar li.done{
+	background:#515151;
+	border: solid #d1d1d1 3px;
+}	
+	
+	
+
+.progressBar li:last-child{
+	margin-right: 0px;
+}	

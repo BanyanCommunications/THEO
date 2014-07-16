@@ -18,7 +18,7 @@
 <ul class="navigation">
 <li><a href="multipleChoice.html">Multiple Choice</a></li>
 <li><a href="json-1.html" class="active">Multiple Choice - JSON</a></li>
-<li><a href="">Radio Buttons</a></li>
+<li><a href="progress-bar.html">Progress Bar</a></li>
 <li><a href="">Checkboxes</a></li>
 <li><a href="">Link Here</a></li>
 <li><a href="">Link Here</a></li>
@@ -236,10 +236,37 @@ $(document).on('click', '.inputRadio', function(){ $('.noChoice').hide();});
 	 		"response":"Wrong! Don't be wishy washy.",
 	 		"correct": false}
 	 		]
+	 },
+	 {"question" : "3. How many answers can be generated for multiple choice?",
+	 	"answers":[
+	 		{"choice":"One",
+	 		"response":"Nope. This one has more than that.",
+	 		"correct": false},
+	 		{"choice":"Twenty",
+	 		"response":"Kind of right. We can generate twenty, there is no limit, but twenty seems like a lot.",
+	 		"correct": false},
+	 		{"choice":"None",
+	 		"response":"Come on you know that's not right.",
+	 		"correct": false},
+	 		{"choice":"Unlimited",
+	 		"response":"Correct! But usability determines how many we actually generate.",
+	 		"correct": true}
+	 		]
+	 },
+	 {"question" : "4. THEO stands for Teddy Heart Eats Out?",
+	 	"answers":[
+	 		{"choice":"True",
+	 		"response":"Nope. Well maybe somewhere, but not here at Banyan.",
+	 		"correct": false},
+	 		{"choice":"False",
+	 		"response":"Correct! What does that even mean?",
+	 		"correct": true}
+	 		]
 	 }
 	 
+	 
 	 ]
-}	
+}	 			
 </pre>
 <br>
 <p><strong>4. Future Upgrades</strong></p>

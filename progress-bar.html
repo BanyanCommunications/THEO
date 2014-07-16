@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSON Generated Progress Bar</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="wrapper_00">
+<div class="sideNav">
+<h2>Standard</h2>
+<ul class="navigation">
+<li><a href="multipleChoice.html">Multiple Choice</a></li>
+<li><a href="json-1.html">Multiple Choice - JSON</a></li>
+<li><a href="progress-bar.html" class="active">Progress Bar</a></li>
+<li><a href="">Checkboxes</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+</ul>
+<h2>Other</h2>
+
+<ul class="navigation">
+<li><a href="">Drag &amp Drop</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+</ul>
+<h2>Video</h2>
+
+<ul class="navigation">
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+<li><a href="">Link Here</a></li>
+</ul>
+</div>
+
+
+
+
+<div class="example json">
+<br/>
+<h1>JSON Generated Progress Bar</h1>
+
+<div class="progressBarHolder">
+	<ul class="progressBar">
+	</ul>
+</div>
+
+<div class="exampleHolders">
+
+
+</div>
+</div>
+
+
+<div class="doc">
+<h1>Documentation</h1>
+<p><strong>0. Capabilities</strong></p>
+<p><ol>
+	<li>Clearly informs where you are in a course and how far you have to go</li>
+	<li>JSON generated</li>
+	<li>Can be used for any question type</li>
+	<li>Each 'circle' is an &lt;li&gt; element and can easily be styled differently</li>
+	<li>Can be styled horizontal or vertical</li>
+	<li>Could be made clickable to allow users to go back</li>
+	</ol>
+</p>	
+<p><strong>1. Dependencies</strong></p>
+<p>jQuery<br/>JSON</p>
+<br>
+<p><strong>2. JQuery Additional Functions</strong></p>
+<p>Two quick functions generate the progress bar.</p>
+<br/><pre>
+function generateProgressBar(num){
+	var progress = '';
+	
+	for( var j = 0; j < num; j++){
+		var count = j + 1;
+		progress += '&lt;li class="progressItem">&lt;span>&nbsp;&lt;/span>&lt;/li>';
+	}
+	
+	$('.progressBar').html(progress);
+	updateProgress();
+}
+
+function updateProgress(){
+	$('.progressBar li').removeClass('active');
+	$('.progressBar li:eq(' + current + ')').addClass('active');
+	//$('.progressBar li').addClass('done');
+	
+	for( var k = 0; k &lt; current; k++){
+		$('.progressBar li:eq(' + k + ')').addClass('done');
+	}
+}
+</pre><br>
+
+
+</div>
+
+
+</div>
+</body>
+<script type="text/javascript" src="js/theo-json.js"></script>
+<script type="text/javascript" src="js/progressBar.js"></script>
+</html>
