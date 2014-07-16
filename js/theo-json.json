@@ -2,23 +2,56 @@
 	{"question" : "1. Can JSON generate the entire question and structure?",
 	 	"answers":[
 	 		{"choice":"Yep!",
-	 		"response":"Correct. We can do anything with JQuery."},
+	 		"response":"Correct! We can do anything with JQuery.",
+	 		"correct": true},
 	 		{"choice":"Nope.",
-	 		"response":"Wrong! Of course we can do it."},
+	 		"response":"Wrong. Of course we can do it.",
+	 		"correct": false},
 	 		{"choice":"Maybe?",
-	 		"response":"Wrong! Don't be wishy washy."}
+	 		"response":"Wrong. Don't be wishy washy.",
+	 		"correct": false}
 	 		]
 	 },
 	 {"question" : "2. How many json files are needed for this quiz?",
 	 	"answers":[
 	 		{"choice":"One",
-	 		"response":"Correct. Just one file to edit for this quiz."},
+	 		"response":"Correct. Just one file to edit for this quiz.",
+	 		"correct": true},
 	 		{"choice":"Two",
-	 		"response":"Wrong! Of course we can do it."},
+	 		"response":"Wrong! Of course we can do it.",
+	 		"correct": false},
 	 		{"choice":"Three",
-	 		"response":"Wrong! Don't be wishy washy."}
+	 		"response":"Wrong! Don't be wishy washy.",
+	 		"correct": false}
+	 		]
+	 },
+	 {"question" : "3. How many answers can be generated for multiple choice?",
+	 	"answers":[
+	 		{"choice":"One",
+	 		"response":"Nope. This one has more than that.",
+	 		"correct": false},
+	 		{"choice":"Twenty",
+	 		"response":"Kind of right. We can generate twenty, there is no limit, but twenty seems like a lot.",
+	 		"correct": false},
+	 		{"choice":"None",
+	 		"response":"Come on you know that's not right.",
+	 		"correct": false},
+	 		{"choice":"Unlimited",
+	 		"response":"Correct! But usability determines how many we actually generate.",
+	 		"correct": true}
+	 		]
+	 },
+	 {"question" : "4. THEO stands for Teddy Heart Eats Out?",
+	 	"answers":[
+	 		{"choice":"True",
+	 		"response":"Nope. Well maybe somewhere, but not here at Banyan.",
+	 		"correct": false},
+	 		{"choice":"False",
+	 		"response":"Correct! What does that even mean?",
+	 		"correct": true}
 	 		]
 	 }
+	 
 	 
 	 ]
 }	 		

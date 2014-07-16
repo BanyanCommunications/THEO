@@ -16,7 +16,8 @@
 <div class="sideNav">
 <h2>Standard</h2>
 <ul class="navigation">
-<li><a href="" class="active">Multiple Choice</a></li>
+<li><a href="multipleChoice.html">Multiple Choice</a></li>
+<li><a href="json-1.html" class="active">Multiple Choice - JSON</a></li>
 <li><a href="">Radio Buttons</a></li>
 <li><a href="">Checkboxes</a></li>
 <li><a href="">Link Here</a></li>
@@ -43,26 +44,13 @@
 
 
 
-<div class="example">
-<h1>Multiple Choice, Single Answer</h1>
+<div class="example json">
+<br/>
+<h1>Multiple Choice, JSON Generated</h1>
 
 
 <div class="exampleHolders">
 
-<p class="question">1. Can JSON generate the entire question and structure?</p>
-	<form>
-    <label class="answer">
-        <input type="radio" name="q4" class="question" value="correct"></input> Yep!</label>
-    <label class="answer">
-        <input type="radio" name="q4" class="question" value="wrong"></input> Not a chance.</label>
-    <label class="answer">
-        <input type="radio" name="q4" value="wrong"></input> Maybe if you try hard.</label>
-    <br />
-    <div class="response"></div>
-    <button class="submit">Submit</button>
-    <a href="#"><button class="next">Next</button></a>
-    <div class="validate-msg">Please select one.</div>
-    </form>
 
 </div>
 </div>
@@ -70,53 +58,200 @@
 
 <div class="doc">
 <h1>Documentation</h1>
-<p><strong>0. Dependencies</strong></p>
-<p>Jquery</p>
+<p><strong>0. Capabilities</strong></p>
+<p><ol>
+	<li>Multiple choice and True/False Questions</li>
+	<li>Able to generate an unlimited number of possible answers.</li>
+	<li>Keeps track of how many correct and incorrect answers.</li>
+	<li>Unique response for each choice.</li>
+	<li>Responses separate from whether correct status.</li>
+	<li>More than one right answer possible.</li>
+	</ol>
+</p>	
+<p><strong>1. Dependencies</strong></p>
+<p>jQuery<br/>JSON</p>
 <br>
-<p><strong>1. Full JQuery</strong></p>
-<pre>
- $(function () { 
- 
- //variable of correct answers var rules = ['correct'];
- $('.submit').click(function (e) { e.preventDefault(); 
- 
- //check correct answers from var above var result; 
- 
- switch($('input[name=q4]:checked').attr('class')){
- 
- case 'question':
- result = '&lt;p class=&quot;incorrect&quot;&gt;Wrong answer!&lt;/p&gt;';
- break; 
- 
- default: result = '&lt;p class=&quot;correct&quot;&gt;Correct answer!&lt;/p&gt;';
- break;}
- 
- $('.validate').append(&quot;&lt;p&gt;&quot; + result + &quot;&lt;/p&gt;&quot;);
- $('.submit').fadeOut(0);
- $('.next').show(); }); });
+<p><strong>2. JQuery Breakdown</strong></p>
+<p>The quiz is initialized and all variables are set to 0. It loads the json data and generates the first question. The quiz checks to see if an answer has been chosen. If not gives an error. If so, show the response and next button. At the end of the quiz 
+a quick results page shows how many questions are correct and how many wrong.</p>
+<br/><pre>
+ $(document).ready(function(){
+
+//initialize some data
+var quizData;
+var current = 0;
+var totalCount = 0;
+var correct = 0;
+var incorrect = 0;
+
+
+function initializeQuiz(){
+
+	$.getJSON('js/theo-json.json', function(data) {
+ 		totalCount = data.quiz.length;
+ 		
+ 		quizData = data;
+	
+ 		generateQuestion(0);
+   });
+}	
+
+
+function generateQuestion(num){
+ 	var content = '';
+  	var questionText = quizData.quiz[num].question;
+  		content += '&lt;div class="exampleBox">&lt;p class="question">' + questionText + '&lt;/p>&lt;form>';
+		
+		var radioname = 'radio' + num;
+		
+		//add each answer from json data
+		for (var x in quizData.quiz[num].answers){
+			var answerChoice = quizData.quiz[num].answers[x].choice;
+			var answerResponse = quizData.quiz[num].answers[x].response;
+			
+			content += '&lt;label class="answer">
+							&lt;input type="radio" name="' 
+							+ radioname 
+							+ '" class="question inputRadio" value="' 
+							+ x 
+							+ '"/> ' 
+							+ answerChoice 
+							+ '&lt;/label>';
+			}
+			
+		content += '&lt;/form>&lt;div class="responseMsg">&lt;/div>
+					&lt;button class="submit">Submit&lt;/button>
+					&lt;div class="noChoice error" style="display:none;">Please make a selection&lt;/div>
+					&lt;button class="next">NEXT&lt;/button>
+					&lt;/div>';	
+	
+	$('.exampleHolders').html(content);	
+	
+}
+
+initializeQuiz();
+  
+  	
+function clickSubmit(e) {
+	e.preventDefault();
+	
+	//check to see if radio button is checked
+	if($('input[name=radio'+ current + ']').is(":checked")){
+		$('.submit').fadeOut(0);
+		
+		//show the response for the question and increment how many right or wrong
+		var chosen = $('input[name=radio'+ current + ']:checked').val();
+	    var isCorrect = quizData.quiz[current].answers[chosen].correct;
+		 
+		//check to see if correct 
+		if(isCorrect){
+			$('.responseMsg').addClass('green');
+			correct += 1;
+		} else {
+			$('.responseMsg').addClass('red');
+			incorrect += 1;
+		}
+		
+		$('.responseMsg').html(quizData.quiz[current].answers[chosen].response);
+		
+		$('.next').show();
+		
+	}else{
+		//show make a choice   
+		$('.noChoice').show();
+	}  
+}
+
+
+function generateResults(){
+	var content = '';
+	
+	content += '&lt;div class="exampleBox">&lt;p class="question">YOUR RESULTS&lt;/p>
+	&lt;div class="results">&lt;h3>Correct: &lt;span class="green">' 
+	+ correct + '&lt;/span> &nbsp;&nbsp;&nbsp;   Wrong: &lt;span class="red">' 
+	+ incorrect + '&lt;/span>&lt;/h3>&lt;/div>';
+	
+	//reset button
+	content += '&lt;button class="reset">TRY AGAIN?&lt;/button>&lt;/div>'
+	$('.exampleHolders').html(content);	
+}
+
+
+function clickNext(e){
+	e.preventDefault();
+	if( current &lt; totalCount - 1){
+			//more questions to come load the next one
+			current += 1;
+			generateQuestion(current);
+		} else{
+			//show total wrong and right
+			generateResults();
+		}
+}
+
+function clickReset(e){
+	e.preventDefault();
+	current = 0;
+	correct = 0;
+	incorrect = 0;
+	
+	generateQuestion(0);
+}
+
+$(document).on('click','.submit',function(e){clickSubmit(e);});
+$(document).on('click','.next', function(e){clickNext(e);});
+$(document).on('click','.reset', function(e){clickReset(e);});
+$(document).on('click', '.inputRadio', function(){ $('.noChoice').hide();}); 
+
+});
 </pre><br>
 
-<p><strong>2. Cases</strong></p>
+<p><strong>3. JSON File</strong></p>
+<p>The JSON file is formated specifically to easily add new questions. I have noticed that we often have responses for each answer whether right or wrong, the questions correct status is separate from the responses.
+</p><br/>
 <pre>
- case 'question':
- result = '&lt;p class=&quot;incorrect&quot;&gt;Wrong answer!&lt;/p&gt;';
- break; 
- 
- default: result = '&lt;p class=&quot;correct&quot;&gt;Correct answer!&lt;/p&gt;';
- break;}
+{"quiz":[
+	{"question" : "1. Can JSON generate the entire question and structure?",
+	 	"answers":[
+	 		{"choice":"Yep!",
+	 		"response":"Correct! We can do anything with JQuery.",
+	 		"correct": true},
+	 		{"choice":"Nope.",
+	 		"response":"Wrong. Of course we can do it.",
+	 		"correct": false},
+	 		{"choice":"Maybe?",
+	 		"response":"Wrong. Don't be wishy washy.",
+	 		"correct": false}
+	 		]
+	 },
+	 {"question" : "2. How many json files are needed for this quiz?",
+	 	"answers":[
+	 		{"choice":"One",
+	 		"response":"Correct. Just one file to edit for this quiz.",
+	 		"correct": true},
+	 		{"choice":"Two",
+	 		"response":"Wrong! Of course we can do it.",
+	 		"correct": false},
+	 		{"choice":"Three",
+	 		"response":"Wrong! Don't be wishy washy.",
+	 		"correct": false}
+	 		]
+	 }
+	 
+	 ]
+}	
 </pre>
-<p>The 'case' is the class attached to the question that will be searched for when determining the correct message to display on submit.  Currently these classes are in the HTML, but could be pulled in from a JSON (or similar) file to prevent easy cheating.<br><br>
-The 'result' is the message displayed on submit. 
-</p><br>
-
-<p><strong>3. Validation</strong></p>
+<br>
+<p><strong>4. Future Upgrades</strong></p>
+<p>Future plans include adding in question type to the json file, so that one json file can generate all types of questions. And use the json file to generate a progress bar.</p>
+<!--<p><strong>3. Validation</strong></p>
 
 <pre>
  $('.validate').append(&quot;&lt;p&gt;&quot; + result + &quot;&lt;/p&gt;&quot;);
 </pre>
 <p>Appends 'result' variable message to the '.validate' div in the HTML.  Currently messages are encoded in the Jquery, but could be stored and pulled in from a JSON file.</p><br>
 
-
+-->
 </div>
 
 

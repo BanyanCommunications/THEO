@@ -1,55 +1,115 @@
 $(document).ready(function(){
-/*
-1. check for no selection
-	if no selection display 'selection prompt'
-2. If selection, check for response and correct two separate components
-*/
 
-$.getJSON('js/theo-json.json', function(response) {
+//initialize some data
+var quizData;
+var current = 0;
+var totalCount = 0;
+var correct = 0;
+var incorrect = 0;
+
+
+function initializeQuiz(){
+
+	$.getJSON('js/theo-json.json', function(data) {
+ 		totalCount = data.quiz.length;
+ 		
+ 		quizData = data;
+	
+ 		generateQuestion(0);
+   });
+}	
+
+
+function generateQuestion(num){
  	var content = '';
-  	for ( var i in response.quiz){ // for each 
-  		
-  		var strongText = response.quiz[i].question;
-  		content += '<div class="exampleBox"><p class="question">' + strongText + '</p><form>';
-		var radioname = 'radio' + i;
+  	var questionText = quizData.quiz[num].question;
+  		content += '<div class="exampleBox"><p class="question">' + questionText + '</p><form>';
 		
-		//add each answer
-		for (var x in response.quiz[i].answers){
-			var answerChoice = response.quiz[i].answers[x].choice;
-			var answerResponse = response.quiz[i].answers[x].response;
+		var radioname = 'radio' + num;
+		
+		//add each answer from json data
+		for (var x in quizData.quiz[num].answers){
+			var answerChoice = quizData.quiz[num].answers[x].choice;
+			var answerResponse = quizData.quiz[num].answers[x].response;
 			
-			content += '<label class="answer"><input type="radio" name="' + radioname + '" class="question" value="' + answerResponse + '"/> ' + answerChoice + '</label>';
+			content += '<label class="answer"><input type="radio" name="' + radioname + '" class="question inputRadio" value="' + x + '"/> ' + answerChoice + '</label>';
 			}
 			
-		content += '</form><button class="submit">Submit</button></div>';	
-		}
+		content += '</form><div class="responseMsg"></div><button class="submit">Submit</button><div class="noChoice error" style="display:none;">Please make a selection</div><button class="next">NEXT</button></div>';	
 	
 	$('.exampleHolders').html(content);	
-  			
-  });
-  
-  $(document).on('click','.submit',function(e){clickSubmit(e);});
- //variable of correct answers	
-var rules = ['correct'];
 	
-function clickSubmit(e) {
-    	alert('click');
-        e.preventDefault();
-        //check correct answers from var above
-        var result;
-        switch($('input[name=q4]:checked').attr('class')){
-            case 'question': 
-                result = '<p class="incorrect">Wrong answer!</p>';
-                break;
-            default:
-                result = '<p class="correct">Correct answer!</p>';
-                break;
-        }
-		
-$('.validate').append("<p>" + result + "</p>");
-$('.submit').fadeOut(0);
-$('.next').show();       
-    }
+}
 
+initializeQuiz();
+  
+  	
+function clickSubmit(e) {
+	e.preventDefault();
+	
+	//check to see if radio button is checked
+	if($('input[name=radio'+ current + ']').is(":checked")){
+		$('.submit').fadeOut(0);
+		
+		//show the response for the question and increment how many right or wrong
+		var chosen = $('input[name=radio'+ current + ']:checked').val();
+	    var isCorrect = quizData.quiz[current].answers[chosen].correct;
+		 
+		//check to see if correct 
+		if(isCorrect){
+			$('.responseMsg').addClass('green');
+			correct += 1;
+		} else {
+			$('.responseMsg').addClass('red');
+			incorrect += 1;
+		}
+		
+		$('.responseMsg').html(quizData.quiz[current].answers[chosen].response);
+		
+		$('.next').show();
+		
+	}else{
+		//show make a choice   
+		$('.noChoice').show();
+	}  
+}
+
+
+function generateResults(){
+	var content = '';
+	
+	content += '<div class="exampleBox"><p class="question">YOUR RESULTS</p><div class="results"><h3>Correct: <span class="green">' + correct + '</span> &nbsp;&nbsp;&nbsp;   Wrong: <span class="red">' + incorrect + '</span></h3></div>';
+	
+	//reset button
+	content += '<button class="reset">TRY AGAIN?</button></div>'
+	$('.exampleHolders').html(content);	
+}
+
+
+function clickNext(e){
+	e.preventDefault();
+	if( current < totalCount - 1){
+			//more questions to come load the next one
+			current += 1;
+			generateQuestion(current);
+		} else{
+			//show total wrong and right
+			generateResults();
+		}
+}
+
+function clickReset(e){
+	e.preventDefault();
+	current = 0;
+	correct = 0;
+	incorrect = 0;
+	
+	generateQuestion(0);
+}
+
+$(document).on('click','.submit',function(e){clickSubmit(e);});
+$(document).on('click','.next', function(e){clickNext(e);});
+$(document).on('click','.reset', function(e){clickReset(e);});
+$(document).on('click', '.inputRadio', function(){ $('.noChoice').hide();}); 
 
 });
